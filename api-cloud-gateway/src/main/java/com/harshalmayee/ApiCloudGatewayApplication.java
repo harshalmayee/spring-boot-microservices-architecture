@@ -2,15 +2,16 @@ package com.harshalmayee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class PaymentServiceApplication {
+@EnableHystrix
+public class ApiCloudGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaymentServiceApplication.class, args);
+		SpringApplication.run(ApiCloudGatewayApplication.class, args);
 	}
 
 }

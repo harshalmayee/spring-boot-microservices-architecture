@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 
     @Autowired
@@ -25,6 +24,17 @@ public class PaymentController {
             return new ResponseEntity<>(payment, HttpStatus.CREATED);
         }catch(Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/findPaymentHistoryByOrderId/{orderId}")
+    public ResponseEntity<Payment> findPaymentHistoryByOrderId(@PathVariable long orderId){
+        Optional<Payment> paymentData = paymentService.findPaymentHistoryByOrderId(orderId);
+
+        if (paymentData.isPresent()) {
+            return new ResponseEntity<>(paymentData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

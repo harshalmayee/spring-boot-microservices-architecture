@@ -5,6 +5,7 @@ import com.harshalmayee.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
@@ -23,5 +24,9 @@ public class PaymentService {
     private String paymentProcessing(){
         // API should be 3rd party Payment Gateway like PayTM,PayPal...
         return new Random().nextBoolean()?"Success":"false";
+    }
+
+    public Optional<Payment> findPaymentHistoryByOrderId(long orderId) {
+        return paymentRepository.findByOrderId(orderId);
     }
 }
